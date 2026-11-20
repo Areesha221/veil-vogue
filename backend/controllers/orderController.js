@@ -155,23 +155,25 @@ export const createOrder = asyncHandler(async (req, res) => {
     paymentStatus: 'PENDING'
   });
 
-  // Send confirmation email (best effort)
-  try {
-    let recipient = null;
-    if (req.user) {
-      recipient = await User.findById(req.user._id).select('name email');
-    } else if (guestInfo) {
-      recipient = { name: guestInfo.name, email: guestInfo.email };
+  // Send confirmation email (best effort, non-blocking so checkout response is not delayed/hung)
+  void (async () => {
+    try {
+      let recipient = null;
+      if (req.user) {
+        recipient = await User.findById(req.user._id).select('name email');
+      } else if (guestInfo) {
+        recipient = { name: guestInfo.name, email: guestInfo.email };
+      }
+      if (recipient?.email) {
+        await sendOrderConfirmation(order, recipient, {
+          guestAccessToken,
+          isGuest
+        });
+      }
+    } catch (error) {
+      console.error('Order email error:', error?.message || error);
     }
-    if (recipient?.email) {
-      await sendOrderConfirmation(order, recipient, {
-        guestAccessToken,
-        isGuest
-      });
-    }
-  } catch (error) {
-    console.error('Order email error:', error?.message || error);
-  }
+  })();
 
   const response = order.toObject();
   if (guestAccessToken) {

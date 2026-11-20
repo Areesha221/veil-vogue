@@ -254,7 +254,7 @@ export default function Checkout() {
       };
 
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const { data: order } = await axios.post('/api/orders', orderData, { headers });
+      const { data: order } = await axios.post('/api/orders', orderData, { headers, timeout: 30000 });
 
       if (receiptMethod === 'website' && uploadedFile) {
         const formData = new FormData();
@@ -266,6 +266,7 @@ export default function Checkout() {
             ...headers,
             'Content-Type': 'multipart/form-data'
           },
+          timeout: 60000,
           onUploadProgress: (progressEvent) => {
             if (!progressEvent.total) return;
             const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
