@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Styles */
+@layer base {
+  :root {
+    --background: 255 255 240; /* ivory */
+    --foreground: 10 10 10; /* deep black */
+    --card: 253 245 230; /* cream */
+    --card-foreground: 10 10 10;
+    --primary: 212 175 55; /* gold */
+    --primary-foreground: 255 255 255;
+    --secondary: 245 245 220; /* beige */
+    --secondary-foreground: 10 10 10;
+    --muted: 245 245 220;
+    --muted-foreground: 100 100 100;
+    --accent: 212 175 55;
+    --accent-foreground: 255 255 255;
+    --border: 212 175 55 / 0.2;
+    --ring: 212 175 55;
+  }
+
+  .dark {
+    --background: 10 10 10; /* deep black */
+    --foreground: 255 255 240; /* ivory */
+    --card: 24 24 27; /* zinc-900 */
+    --card-foreground: 255 255 240;
+    --primary: 212 175 55; /* gold */
+    --primary-foreground: 10 10 10;
+    --secondary: 24 24 27;
+    --secondary-foreground: 255 255 240;
+    --muted: 39 39 42; /* zinc-800 */
+    --muted-foreground: 161 161 170; /* zinc-400 */
+    --accent: 212 175 55;
+    --accent-foreground: 255 255 255;
+    --border: 212 175 55 / 0.2;
+    --ring: 212 175 55;
+  }
+}
+
+@layer base {
+  * {
+     box-sizing: border-box;
+  }
+  body {
+    @apply bg-ivory text-gray-900 dark:bg-zinc-950 dark:text-ivory;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-zinc-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gold/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gold;
+}
+
+/* Glass Effect */
+.glass {
+  @apply bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-zinc-800/50;
+}
+
+/* Gold Gradient Text */
+.text-gold-gradient {
+  @apply bg-gradient-to-r from-gold via-yellow-400 to-gold bg-clip-text text-transparent;
+}
+
+/* Gold Gradient Background */
+.gold-gradient {
+  @apply bg-gradient-to-br from-gold via-yellow-400 to-gold;
+}
+
+/* Smooth Transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Custom Cursor Styles (desktop with custom cursor) */
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
+  
+  a, button, input, textarea, select, [data-cursor="hover"] {
+    cursor: none !important;
+  }
+
+  body {
+    cursor: none;
+  }
+}
+
+/* Default cursor behavior on smaller screens (when custom cursor is not shown)
+   - Arrow cursor by default
+   - Text cursor in input fields / textarea for typing
+   - Hand/pointer cursor on clickable elements */
+@media (max-width: 767px) {
+  body, body * {
+    cursor: default !important;
+  }
+
+  input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="hidden"]),
+  textarea,
+  [contenteditable="true"],
+  [contenteditable=""] {
+    cursor: text !important;
+  }
+
+  a,
+  button,
+  label,
+  summary,
+  [role="button"],
+  [onclick],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="range"],
+  input[type="color"],
+  input[type="file"],
+  select,
+  .cursor-pointer {
+    cursor: pointer !important;
+  }
+}
+
+/* Product Card Hover Effect */
+.product-card {
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(5deg) scale(1.02);
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
