@@ -70,7 +70,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link 
             to="/" 
-            className="font-serif text-2xl sm:text-3xl font-bold text-gold"
+            className="font-serif text-2xl sm:text-3xl font-bold text-gold whitespace-nowrap"
             onClick={() => setMobileMenuOpen(false)}
           >
             Veil & Vogue

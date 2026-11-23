@@ -1,11 +1,8 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import Hero from '../components/home/Hero';
 import Categories from '../components/home/Categories';
 import FeaturedProducts from '../components/home/FeaturedProducts';
-import ProductsStrip from '../components/shop/ProductsStrip';
-import RecentlyViewed from '../components/shop/RecentlyViewed';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function Home() {
@@ -20,59 +17,17 @@ export default function Home() {
       <Categories />
       <FeaturedProducts />
 
-      <div className="max-w-7xl mx-auto px-4 pb-10 space-y-2">
-        <div className="rounded-3xl border border-gold/20 bg-gradient-to-r from-gold/10 via-white to-rose-50 dark:from-gold/10 dark:via-zinc-900 dark:to-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <section className="max-w-7xl mx-auto px-4 pb-16">
+        <div className="rounded-3xl border border-gold/20 bg-gradient-to-r from-gold/10 via-white to-rose-50 dark:from-gold/10 dark:via-zinc-900 dark:to-zinc-900 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 dark:text-ivory">Build Your Own Gift Hamper</h2>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">Choose products of your own choice, add a gift note, and create a personalized hamper.</p>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">Choose products, add a gift note, and create a personalized hamper.</p>
           </div>
           <Link to="/build-hamper" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-gold text-white font-semibold hover:opacity-90 transition">
             <Sparkles size={16} /> Start Building
           </Link>
         </div>
-
-        <ProductsStrip
-          title="Abayas Collection"
-          subtitle="Elegant abayas with images, fabrics, and prices"
-          category="abayas"
-          sortBy="sold"
-          limit={4}
-          viewAllTo="/shop/abayas"
-        />
-        <ProductsStrip
-          title="Hijabs Collection"
-          subtitle="Premium hijabs for everyday and special occasions"
-          category="hijabs"
-          sortBy="newest"
-          limit={4}
-          viewAllTo="/shop/hijabs"
-        />
-        <ProductsStrip
-          title="Accessories & Essentials"
-          subtitle="Pins, caps, scrunchies, hair catchers, and more"
-          category="accessories"
-          sortBy="newest"
-          limit={4}
-          viewAllTo="/shop/accessories"
-        />
-        <ProductsStrip
-          title="Best Sellers"
-          subtitle="Popular products our customers love most"
-          onlyBestSeller
-          sortBy="sold"
-          limit={4}
-          viewAllTo="/shop"
-        />
-        <ProductsStrip
-          title="New Arrivals"
-          subtitle="Latest additions to Veil & Vogue"
-          onlyNew
-          sortBy="newest"
-          limit={4}
-          viewAllTo="/shop"
-        />
-        <RecentlyViewed limit={4} />
-      </div>
+      </section>
 
       {/* WhatsApp CTA */}
       <a

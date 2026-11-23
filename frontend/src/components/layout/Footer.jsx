@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Brand Section */}
           <div>
-            <h3 className="font-serif text-3xl font-bold text-gold mb-4">Veil & Vogue</h3>
+            <h3 className="font-serif text-3xl font-bold text-gold mb-4 whitespace-nowrap">Veil & Vogue</h3>
             <p className="text-ivory/70 mb-6 leading-relaxed">
               Where Modesty Meets Elegance. Premium modest fashion for the modern woman.
             </p>

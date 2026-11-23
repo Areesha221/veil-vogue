@@ -71,7 +71,7 @@ export default function AdminLayout() {
           <div className="absolute inset-0 bg-black/40" onClick={() => setSidebarOpen(false)} />
           <aside className="absolute left-0 top-0 bottom-0 w-72 max-w-[85vw] bg-white dark:bg-zinc-900 border-r border-gray-200 dark:border-zinc-800 p-4 flex flex-col">
             <div className="flex items-center justify-between mb-6">
-              <Link to="/admin" onClick={() => setSidebarOpen(false)} className="font-serif text-2xl font-bold text-gold">Veil & Vogue</Link>
+              <Link to="/admin" onClick={() => setSidebarOpen(false)} className="font-serif text-2xl font-bold text-gold whitespace-nowrap">Veil & Vogue</Link>
               <button onClick={() => setSidebarOpen(false)} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800" aria-label="Close admin menu">
                 <X size={20} />
               </button>
@@ -95,7 +95,7 @@ export default function AdminLayout() {
       <div className="lg:flex">
         {/* Desktop sidebar */}
         <aside className="hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-white dark:bg-zinc-900 border-r border-gray-200 dark:border-zinc-800 p-5">
-          <Link to="/admin" className="font-serif text-3xl font-bold text-gold mb-1">Veil & Vogue</Link>
+          <Link to="/admin" className="font-serif text-3xl font-bold text-gold mb-1 whitespace-nowrap">Veil & Vogue</Link>
           <p className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-6">Admin Panel</p>
 
           <nav className="flex-1 space-y-1 overflow-y-auto pr-1">
