@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import PasswordInput from '../components/ui/PasswordInput';
 import ProductsStrip from '../components/shop/ProductsStrip';
 import usePageMeta from '../hooks/usePageMeta';
-import { getRememberedEmail, setRememberedEmail } from '../utils/authStorage';
+import { getRememberedEmail, setRememberedEmail, getRememberMePreference, setRememberMePreference } from '../utils/authStorage';
 
 export default function Login() {
   usePageMeta({
@@ -20,11 +20,13 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  // Load remembered email on mount (prefill convenience; user can still uncheck "Remember me")
+  // Load remembered login preferences on mount
   useEffect(() => {
-    const savedEmail = getRememberedEmail();
-    if (savedEmail) {
-      setEmail((prev) => prev || savedEmail);
+    const remembered = getRememberMePreference();
+    setRememberMe(remembered);
+    if (remembered) {
+      const savedEmail = getRememberedEmail();
+      if (savedEmail) setEmail((prev) => prev || savedEmail);
     }
   }, []);
 
@@ -36,8 +38,10 @@ export default function Login() {
       const loggedInUser = await login(email, password, rememberMe);
       if (!loggedInUser) return;
 
-      // Keep remembered-email convenience for next visit; rememberMe controls session persistence only
-      setRememberedEmail(email);
+      // Remember preferences for next visit
+      setRememberMePreference(rememberMe);
+      if (rememberMe) setRememberedEmail(email);
+      else setRememberedEmail('');
 
       navigate(loggedInUser.role === 'admin' ? '/admin' : '/');
     } finally {

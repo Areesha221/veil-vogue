@@ -1,6 +1,7 @@
 const TOKEN_KEY = 'veil-vogue-token';
 const USER_KEY = 'veil-vogue-user';
 const REMEMBER_EMAIL_KEY = 'vv-remember-email';
+const REMEMBER_ME_KEY = 'vv-remember-me';
 
 const canUseStorage = (storage) => {
   try {
@@ -105,4 +106,11 @@ export const setRememberedEmail = (email) => {
   const value = String(email || '').trim();
   if (value) safeSet(localStorage, REMEMBER_EMAIL_KEY, value);
   else safeRemove(localStorage, REMEMBER_EMAIL_KEY);
+};
+
+export const getRememberMePreference = () => safeGet(localStorage, REMEMBER_ME_KEY) === 'true';
+
+export const setRememberMePreference = (rememberMe) => {
+  if (rememberMe) safeSet(localStorage, REMEMBER_ME_KEY, 'true');
+  else safeRemove(localStorage, REMEMBER_ME_KEY);
 };

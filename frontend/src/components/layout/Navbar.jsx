@@ -66,7 +66,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 gap-4 lg:gap-6">
           {/* Logo */}
           <Link 
             to="/" 
@@ -82,7 +82,7 @@ export default function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-medium whitespace-nowrap transition-colors ${
                   location.pathname === link.to
                     ? 'text-gold'
                     : scrolled 
