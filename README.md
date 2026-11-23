@@ -31,7 +31,7 @@ This project is primarily built with **JavaScript** (ES modules):
 - JWT authentication (`jsonwebtoken`)
 - bcryptjs (password hashing)
 - Multer (file uploads)
-- Cloudinary SDK (optional cloud/object storage for uploads)
+- Local file storage for uploads (product image URLs can also be managed directly from admin dashboard)
 - Nodemailer (email)
 - Socket.IO (real-time notifications/messages/events)
 - Validator / custom validation utilities
@@ -100,7 +100,7 @@ This project is primarily built with **JavaScript** (ES modules):
 - **npm**
 - **MongoDB** (local or hosted Atlas/cluster)
 - **SMTP credentials** (for password reset/order emails, if email features are used)
-- **Cloudinary account/credentials** (optional, only if using cloud upload storage)
+- (Optional) Image hosting URLs for product images (admin can paste image URLs directly in dashboard)
 
 ## Environment setup
 

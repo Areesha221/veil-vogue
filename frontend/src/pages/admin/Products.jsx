@@ -46,6 +46,7 @@ export default function AdminProducts() {
     subcategory: '',
     stock: '',
     images: [],
+    imageUrlsText: '',
     isFeatured: false,
     isNewArrival: false,
     isBestSeller: false
@@ -178,6 +179,7 @@ export default function AdminProducts() {
       subcategory: product.subcategory || '',
       stock: safeStock,
       images: product.images || [],
+      imageUrlsText: (product.images || []).join('\n'),
       isFeatured: !!product.isFeatured,
       isNewArrival: !!product.isNewArrival,
       isBestSeller: !!product.isBestSeller
@@ -199,6 +201,7 @@ export default function AdminProducts() {
       subcategory: '',
       stock: '',
       images: [],
+      imageUrlsText: '',
       isFeatured: false,
       isNewArrival: false,
       isBestSeller: false
@@ -246,8 +249,15 @@ export default function AdminProducts() {
       formDataObj.append('isBestSeller', formData.isBestSeller ? 'true' : 'false');
       if (formData.category) formDataObj.append('category', formData.category);
 
+      const imageUrls = String(formData.imageUrlsText || '')
+        .split(/[\n,]/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+
       if (selectedFiles.length > 0) {
         selectedFiles.forEach(file => formDataObj.append('images', file));
+      } else if (imageUrls.length > 0) {
+        formDataObj.append('images', JSON.stringify(imageUrls));
       } else if (editingProduct && formData.images && formData.images.length > 0) {
         formDataObj.append('images', JSON.stringify(formData.images));
       }
@@ -448,7 +458,7 @@ export default function AdminProducts() {
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-gray-600 dark:text-gray-400">Page {pagination.page || 1} of {pagination.totalPages || 1} â€¢ Total {pagination.total || 0}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Page {pagination.page || 1} of {pagination.totalPages || 1} • Total {pagination.total || 0}</p>
           <div className="flex items-center gap-2">
             <button disabled={(pagination.page || 1) <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="px-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-gray-900 dark:text-ivory disabled:opacity-50">Previous</button>
             <button disabled={(pagination.page || 1) >= (pagination.totalPages || 1)} onClick={() => setPage((p) => p + 1)} className="px-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-gray-900 dark:text-ivory disabled:opacity-50">Next</button>
@@ -508,7 +518,20 @@ export default function AdminProducts() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-ivory">Product Images {editingProduct ? '(Leave empty to keep existing)' : '*'}</label>
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-ivory">Image URLs (one per line or comma separated)</label>
+                  <textarea
+                    name="imageUrlsText"
+                    value={formData.imageUrlsText}
+                    onChange={handleInputChange}
+                    rows="3"
+                    placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
+                    className="w-full px-4 py-2 rounded-lg bg-ivory dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 focus:border-gold focus:outline-none text-gray-900 dark:text-ivory"
+                  />
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Recommended: paste image URLs here (works like hardcoded/static image links). File upload below is optional.</p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-ivory">Upload Image Files (optional)</label>
                   <input type="file" multiple accept="image/jpeg, image/png, image/webp" onChange={handleFileChange} className="w-full px-4 py-2 rounded-lg bg-ivory dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 focus:border-gold focus:outline-none text-gray-900 dark:text-ivory file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gold file:text-white hover:file:bg-yellow-600 cursor-pointer" />
                   {imagePreviews.length > 0 && (
                     <div className="flex gap-3 mt-3 flex-wrap">

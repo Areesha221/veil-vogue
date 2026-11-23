@@ -136,7 +136,7 @@ export default function AdminDashboard() {
                                 <div key={`${p.productId || p.name}-${idx}`} className="border border-gray-100 dark:border-zinc-800 rounded-xl p-3">
                                     <p className="font-semibold text-sm text-gray-900 dark:text-ivory line-clamp-1">{p.name}</p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                        Sold: {Number(p.quantity || 0)} â€¢ Revenue: PKR {Number(p.revenue || 0).toLocaleString()}
+                                        Sold: {Number(p.quantity || 0)} • Revenue: PKR {Number(p.revenue || 0).toLocaleString()}
                                     </p>
                                 </div>
                             ))}

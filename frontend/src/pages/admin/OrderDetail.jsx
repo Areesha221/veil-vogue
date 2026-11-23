@@ -527,7 +527,7 @@ ${order.giftMessage ? `\nGift Message:\n${order.giftMessage}` : ''}
               <div>
                 <h3 className="font-bold text-lg text-gray-900 dark:text-ivory">Payment Receipt</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {order.paymentReceipt.fileName} â€¢ {order.paymentReceipt.fileSize ? `${(Number(order.paymentReceipt.fileSize) / 1024).toFixed(2)} KB` : 'N/A'}
+                  {order.paymentReceipt.fileName} • {order.paymentReceipt.fileSize ? `${(Number(order.paymentReceipt.fileSize) / 1024).toFixed(2)} KB` : 'N/A'}
                 </p>
               </div>
               <button

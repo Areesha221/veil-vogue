@@ -172,7 +172,7 @@ export default function AdminMessages() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 dark:text-ivory mb-2">Customer Messages</h1>
-            <p className="text-gray-600 dark:text-gray-400">Total: {pagination.total || 0} â€¢ Unread on page: {unreadCountOnPage}</p>
+            <p className="text-gray-600 dark:text-gray-400">Total: {pagination.total || 0} • Unread on page: {unreadCountOnPage}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button onClick={handleExport} className="px-4 py-2 rounded-lg bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-ivory hover:bg-gray-50 dark:hover:bg-zinc-700 flex items-center gap-2"><Download size={16} /> Export CSV</button>

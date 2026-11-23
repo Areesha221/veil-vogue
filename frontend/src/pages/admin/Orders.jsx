@@ -137,7 +137,7 @@ export default function AdminOrders() {
             <div>
               <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 dark:text-ivory mb-2">Order Management</h1>
               <p className="text-gray-600 dark:text-gray-400">
-                {pagination.total || 0} orders â€¢ Page revenue: PKR {totalsOnPage.toLocaleString()}
+                {pagination.total || 0} orders • Page revenue: PKR {totalsOnPage.toLocaleString()}
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -285,7 +285,7 @@ export default function AdminOrders() {
                   <div><p className="text-xs text-gray-500 dark:text-gray-400">Items</p><p className="text-gray-700 dark:text-ivory">{order.orderItems?.length || 0}</p></div>
                   <div><p className="text-xs text-gray-500 dark:text-gray-400">Total</p><p className="font-bold text-gold">PKR {Number(order.totalPrice || 0).toLocaleString()}</p></div>
                 </div>
-                <div><p className="text-xs text-gray-500 dark:text-gray-400">Payment</p><p className="text-gray-700 dark:text-ivory">{order.paymentMethod} â€¢ {order.paymentStatus || 'PENDING'}</p></div>
+                <div><p className="text-xs text-gray-500 dark:text-gray-400">Payment</p><p className="text-gray-700 dark:text-ivory">{order.paymentMethod} • {order.paymentStatus || 'PENDING'}</p></div>
               </div>
               <button onClick={() => navigate(`/admin/orders/${order._id}`)} className="w-full bg-blue-600 text-white py-2 rounded-full font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm">
                 <Eye size={16} /> View Details
@@ -295,7 +295,7 @@ export default function AdminOrders() {
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-gray-600 dark:text-gray-400">Page {pagination.page || 1} of {pagination.totalPages || 1} â€¢ Total {pagination.total || 0}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Page {pagination.page || 1} of {pagination.totalPages || 1} • Total {pagination.total || 0}</p>
           <div className="flex items-center gap-2">
             <button disabled={(pagination.page || 1) <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="px-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-gray-900 dark:text-ivory disabled:opacity-50">Previous</button>
             <button disabled={(pagination.page || 1) >= (pagination.totalPages || 1)} onClick={() => setPage((p) => p + 1)} className="px-4 py-2 rounded-lg border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-gray-900 dark:text-ivory disabled:opacity-50">Next</button>

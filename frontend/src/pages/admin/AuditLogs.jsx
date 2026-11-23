@@ -92,7 +92,7 @@ export default function AdminAuditLogs() {
   };
 
   const formatJson = (val) => {
-    if (val == null) return 'â€”';
+    if (val == null) return '—';
     try {
       return JSON.stringify(val, null, 2);
     } catch {
@@ -183,11 +183,11 @@ export default function AdminAuditLogs() {
                     </div>
                     <p className="font-medium text-gray-900 dark:text-ivory break-words">{log.summary || log.entityLabel || 'No summary'}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      Actor: {log.actorName || 'Unknown'} {log.actorEmail ? `(${log.actorEmail})` : ''} {log.actorRole ? `â€¢ ${log.actorRole}` : ''}
+                      Actor: {log.actorName || 'Unknown'} {log.actorEmail ? `(${log.actorEmail})` : ''} {log.actorRole ? `• ${log.actorRole}` : ''}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                       {log.createdAt ? new Date(log.createdAt).toLocaleString() : 'N/A'}
-                      {log.entityLabel ? ` â€¢ ${log.entityLabel}` : ''}
+                      {log.entityLabel ? ` • ${log.entityLabel}` : ''}
                     </p>
                   </div>
                   <button
@@ -221,7 +221,7 @@ export default function AdminAuditLogs() {
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Page {pagination.page || 1} of {pagination.totalPages || 1} â€¢ Total {pagination.total || 0}
+            Page {pagination.page || 1} of {pagination.totalPages || 1} • Total {pagination.total || 0}
           </p>
           <div className="flex items-center gap-2">
             <button
