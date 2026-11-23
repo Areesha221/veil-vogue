@@ -15,6 +15,7 @@ export default function AdminOrderDetail() {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [receiptBlobUrl, setReceiptBlobUrl] = useState('');
   const [receiptLoading, setReceiptLoading] = useState(false);
+  const [receiptPreviewError, setReceiptPreviewError] = useState('');
 
   useEffect(() => {
     fetchOrder();
@@ -42,11 +43,26 @@ export default function AdminOrderDetail() {
     }
   };
 
+  const getApiErrorMessage = async (error, fallback) => {
+    const data = error?.response?.data;
+    if (data instanceof Blob) {
+      try {
+        const text = await data.text();
+        const parsed = JSON.parse(text);
+        return parsed?.message || fallback;
+      } catch {
+        return fallback;
+      }
+    }
+    return data?.message || error?.message || fallback;
+  };
+
   const fetchReceiptBlobUrl = async () => {
     if (!order?.paymentReceipt?.fileName || !order?._id) return '';
     if (receiptBlobUrl) return receiptBlobUrl;
     try {
       setReceiptLoading(true);
+      setReceiptPreviewError('');
       const token = (localStorage.getItem('veil-vogue-token') || sessionStorage.getItem('veil-vogue-token'));
       const res = await axios.get(`/api/admin/orders/${order._id}/receipt-file`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -57,7 +73,9 @@ export default function AdminOrderDetail() {
       return url;
     } catch (error) {
       console.error('Receipt load error:', error);
-      toast.error(error?.response?.data?.message || 'Failed to load receipt file');
+      const msg = await getApiErrorMessage(error, 'Failed to load receipt file');
+      setReceiptPreviewError(msg);
+      toast.error(msg);
       return '';
     } finally {
       setReceiptLoading(false);
@@ -65,6 +83,7 @@ export default function AdminOrderDetail() {
   };
 
   const openReceiptModal = async () => {
+    setReceiptPreviewError('');
     setShowReceiptModal(true);
     await fetchReceiptBlobUrl();
   };
@@ -556,7 +575,10 @@ ${order.giftMessage ? `\nGift Message:\n${order.giftMessage}` : ''}
                   />
                 )
               ) : (
-                <p className="text-gray-600 dark:text-gray-300">Receipt preview unavailable.</p>
+                <div className="text-center text-gray-500 dark:text-gray-400 px-4">
+                  <p className="font-medium text-gray-700 dark:text-gray-200">Receipt preview unavailable</p>
+                  <p className="text-sm mt-1">{receiptPreviewError || 'The receipt file could not be loaded. If this was an old local upload, it may have been lost after a server redeploy.'}</p>
+                </div>
               )}
             </div>
 

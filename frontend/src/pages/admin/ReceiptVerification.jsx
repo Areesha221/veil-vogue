@@ -23,6 +23,7 @@ export default function ReceiptVerification() {
   const [adminNotes, setAdminNotes] = useState('');
   const [receiptBlobUrl, setReceiptBlobUrl] = useState('');
   const [receiptLoading, setReceiptLoading] = useState(false);
+  const [receiptPreviewError, setReceiptPreviewError] = useState('');
   const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
@@ -72,10 +73,25 @@ export default function ReceiptVerification() {
     }
   };
 
+  const getApiErrorMessage = async (error, fallback) => {
+    const data = error?.response?.data;
+    if (data instanceof Blob) {
+      try {
+        const text = await data.text();
+        const parsed = JSON.parse(text);
+        return parsed?.message || fallback;
+      } catch {
+        return fallback;
+      }
+    }
+    return data?.message || error?.message || fallback;
+  };
+
   const fetchReceiptBlobUrl = async (order) => {
     if (!order?._id || !order?.paymentReceipt?.fileName) return '';
     try {
       setReceiptLoading(true);
+      setReceiptPreviewError('');
       const token = getToken();
       const res = await axios.get(`/api/admin/orders/${order._id}/receipt-file`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -87,7 +103,9 @@ export default function ReceiptVerification() {
       return url;
     } catch (error) {
       console.error('Receipt preview error:', error);
-      toast.error(error?.response?.data?.message || 'Failed to load receipt preview');
+      const msg = await getApiErrorMessage(error, 'Failed to load receipt preview');
+      setReceiptPreviewError(msg);
+      toast.error(msg);
       return '';
     } finally {
       setReceiptLoading(false);
@@ -117,6 +135,7 @@ export default function ReceiptVerification() {
   const openVerificationModal = async (order) => {
     setSelectedOrder(order);
     setAdminNotes('');
+    setReceiptPreviewError('');
     setShowModal(true);
     if (receiptBlobUrl) {
       URL.revokeObjectURL(receiptBlobUrl);
@@ -129,6 +148,7 @@ export default function ReceiptVerification() {
     setShowModal(false);
     setSelectedOrder(null);
     setAdminNotes('');
+    setReceiptPreviewError('');
     if (receiptBlobUrl) {
       URL.revokeObjectURL(receiptBlobUrl);
       setReceiptBlobUrl('');
@@ -410,7 +430,8 @@ export default function ReceiptVerification() {
                     ) : (
                       <div className="text-center text-gray-500 dark:text-gray-400 px-4">
                         <AlertCircle size={36} className="mx-auto mb-2 opacity-60" />
-                        <p>Receipt preview unavailable. Try reloading or download the file.</p>
+                        <p className="font-medium text-gray-700 dark:text-gray-200">Receipt preview unavailable</p>
+                        <p className="text-sm mt-1">{receiptPreviewError || 'Try reloading or download the file. If this was an old local upload, it may have been lost after a server redeploy.'}</p>
                       </div>
                     )}
                   </div>

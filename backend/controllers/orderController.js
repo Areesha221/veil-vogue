@@ -45,8 +45,13 @@ const streamRemoteFile = (url, res, fallbackName = 'receipt', contentType = 'app
     const client = parsed.protocol === 'https:' ? https : http;
     const request = client.get(parsed, (upstream) => {
       if (upstream.statusCode && upstream.statusCode >= 400) {
-        res.status(502).json({ message: 'Failed to fetch receipt file' });
+        const code = upstream.statusCode;
         upstream.resume();
+        if (code === 404 || code === 410) {
+          res.status(404).json({ message: 'Receipt file not found at stored location. It may have been removed or lost from temporary server storage.' });
+        } else {
+          res.status(502).json({ message: `Failed to fetch receipt file (upstream ${code})` });
+        }
         return resolve();
       }
       res.setHeader('Content-Type', upstream.headers['content-type'] || contentType);
@@ -56,7 +61,12 @@ const streamRemoteFile = (url, res, fallbackName = 'receipt', contentType = 'app
       upstream.on('end', resolve);
       upstream.on('error', reject);
     });
-    request.on('error', reject);
+    request.on('error', () => {
+      if (!res.headersSent) {
+        res.status(502).json({ message: 'Could not retrieve receipt file from its stored location. It may be unavailable or lost from temporary server storage.' });
+      }
+      resolve();
+    });
   } catch (error) {
     reject(error);
   }
@@ -318,7 +328,7 @@ export const getOrderReceiptFile = asyncHandler(async (req, res) => {
   // Local receipt
   const resolved = resolveLocalAbsolutePathFromStored(stored.filePath);
   if (!resolved || !fs.existsSync(resolved)) {
-    return res.status(404).json({ message: 'Receipt file not found on server' });
+    return res.status(404).json({ message: 'Receipt file is not available on the server. It may have been uploaded to temporary local storage and lost after a redeploy.' });
   }
 
   res.setHeader('Content-Type', contentType);
