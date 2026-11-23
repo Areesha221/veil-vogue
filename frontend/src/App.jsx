@@ -1,16 +1,11 @@
-import { Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Socket Provider (only this one - others are in main.jsx)
 import SocketProvider from './context/SocketContext';
 
-// Layout Components
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import CustomCursor from './components/layout/CustomCursor';
-import BackToTop from './components/ui/BackToTop';
-import ScrollToTop from './components/layout/ScrollToTop';
-import AIAssistant from './components/AIAssistant';
+// Layouts
+import PublicLayout from './components/layout/PublicLayout';
+import AdminLayout from './components/layout/AdminLayout';
 
 // Auth Guards
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -53,57 +48,47 @@ import AdminAuditLogs from './pages/admin/AuditLogs';
 export default function App() {
   return (
     <SocketProvider>
-      <div className="min-h-screen">
-        <CustomCursor />
-        <ScrollToTop />
-        <div className="min-h-screen bg-ivory dark:bg-zinc-950 text-gray-900 dark:text-ivory transition-colors">
-          <Navbar />
-          <main>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/shop/:category" element={<Shop />} />
-              <Route path="/build-hamper" element={<HamperBuilder />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-              <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
-              <Route path="/order-success" element={<OrderSuccess />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password/:token" element={<ResetPassword />} />
-              <Route path="/shipping" element={<Shipping />} />
-              <Route path="/returns" element={<Returns />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/track-order" element={<TrackOrder />} />
+      <Routes>
+        {/* Public / Customer Routes */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/:category" element={<Shop />} />
+          <Route path="/build-hamper" element={<HamperBuilder />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/returns" element={<Returns />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/track-order" element={<TrackOrder />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
 
-              {/* Admin Routes */}
-              <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-              <Route path="/admin/products" element={<AdminRoute><AdminProducts /></AdminRoute>} />
-              <Route path="/admin/orders" element={<AdminRoute><AdminOrders /></AdminRoute>} />
-              <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
-              <Route path="/admin/messages" element={<AdminRoute><AdminMessages /></AdminRoute>} />
-              <Route path="/admin/receipts" element={<AdminRoute><AdminReceiptVerification /></AdminRoute>} />
-              <Route path="/admin/reviews" element={<AdminRoute><AdminReviews /></AdminRoute>} />
-              <Route path="/admin/audit-logs" element={<AdminRoute><AdminAuditLogs /></AdminRoute>} />
-              <Route path="/admin/orders/:id" element={<AdminRoute><AdminOrderDetail /></AdminRoute>} />
-
-              {/* 404 */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-          <Toaster position="bottom-right" />
-        </div>
-        <BackToTop />
-        <AIAssistant />
-      </div>
+        {/* Admin Routes - admin-only shell, no customer shop chrome */}
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="messages" element={<AdminMessages />} />
+          <Route path="receipts" element={<AdminReceiptVerification />} />
+          <Route path="reviews" element={<AdminReviews />} />
+          <Route path="audit-logs" element={<AdminAuditLogs />} />
+          <Route path="orders/:id" element={<AdminOrderDetail />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Route>
+      </Routes>
     </SocketProvider>
   );
 }

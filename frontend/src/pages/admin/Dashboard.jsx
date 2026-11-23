@@ -57,7 +57,7 @@ export default function AdminDashboard() {
     const maxDailyRevenue = Math.max(1, ...(s.last7Days || []).map((d) => Number(d.revenue || 0)));
 
     return (
-        <div className="min-h-screen bg-ivory dark:bg-zinc-950 pt-28 md:pt-32 pb-10">
+        <div className="pb-6">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="mb-8">
                     <h1 className="font-serif text-4xl font-bold text-gray-900 dark:text-ivory mb-2">
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
                                 <div key={`${p.productId || p.name}-${idx}`} className="border border-gray-100 dark:border-zinc-800 rounded-xl p-3">
                                     <p className="font-semibold text-sm text-gray-900 dark:text-ivory line-clamp-1">{p.name}</p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                        Sold: {Number(p.quantity || 0)} • Revenue: PKR {Number(p.revenue || 0).toLocaleString()}
+                                        Sold: {Number(p.quantity || 0)} â€¢ Revenue: PKR {Number(p.revenue || 0).toLocaleString()}
                                     </p>
                                 </div>
                             ))}

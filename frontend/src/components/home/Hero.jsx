@@ -42,8 +42,8 @@ export default function Hero() {
           </motion.div>
 
           {/* Title - Responsive */}
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-4 sm:mb-6 text-gray-900 dark:text-ivory">
-            <span className="block">Veil &</span>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-4 sm:mb-6 text-gray-900 dark:text-ivory whitespace-nowrap">
+            <span>Veil & </span>
             <span className="text-gold">Vogue</span>
           </h1>
 

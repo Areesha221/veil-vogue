@@ -96,7 +96,7 @@ export default function AdminOrderDetail() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      toast.success(verified ? '✓ Receipt verified!' : '✗ Receipt rejected');
+      toast.success(verified ? 'âœ“ Receipt verified!' : 'âœ— Receipt rejected');
       await fetchOrder();
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to verify receipt');
@@ -177,7 +177,7 @@ ${order.giftMessage ? `\nGift Message:\n${order.giftMessage}` : ''}
   };
 
   return (
-    <div className="min-h-screen bg-ivory dark:bg-zinc-950 pt-28 md:pt-32 pb-10">
+    <div className="pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
@@ -527,7 +527,7 @@ ${order.giftMessage ? `\nGift Message:\n${order.giftMessage}` : ''}
               <div>
                 <h3 className="font-bold text-lg text-gray-900 dark:text-ivory">Payment Receipt</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {order.paymentReceipt.fileName} • {order.paymentReceipt.fileSize ? `${(Number(order.paymentReceipt.fileSize) / 1024).toFixed(2)} KB` : 'N/A'}
+                  {order.paymentReceipt.fileName} â€¢ {order.paymentReceipt.fileSize ? `${(Number(order.paymentReceipt.fileSize) / 1024).toFixed(2)} KB` : 'N/A'}
                 </p>
               </div>
               <button

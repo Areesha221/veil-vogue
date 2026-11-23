@@ -123,13 +123,13 @@ export default function AdminReviews() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory dark:bg-zinc-950 pt-28 md:pt-32 pb-10">
+    <div className="pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-gray-900 dark:text-ivory">Review Moderation</h1>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
-              {pagination.total || 0} reviews • Page avg rating: {avgRating}/5
+              {pagination.total || 0} reviews â€¢ Page avg rating: {avgRating}/5
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -202,7 +202,7 @@ export default function AdminReviews() {
                       </button>
                     </div>
                   </div>
-                  <p className="mt-2 text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words">{review.comment || '—'}</p>
+                  <p className="mt-2 text-gray-700 dark:text-gray-300 whitespace-pre-wrap break-words">{review.comment || 'â€”'}</p>
                   <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
                     <span>Created: {review.createdAt ? new Date(review.createdAt).toLocaleString() : 'N/A'}</span>
                     <span>Product ID: {String(review.productId || '').slice(-8)}</span>
@@ -216,7 +216,7 @@ export default function AdminReviews() {
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Page {pagination.page || 1} of {pagination.totalPages || 1} • Total {pagination.total || 0}
+            Page {pagination.page || 1} of {pagination.totalPages || 1} â€¢ Total {pagination.total || 0}
           </p>
           <div className="flex items-center gap-2">
             <button

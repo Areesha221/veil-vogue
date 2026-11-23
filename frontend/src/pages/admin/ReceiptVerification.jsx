@@ -181,7 +181,7 @@ export default function ReceiptVerification() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory dark:bg-zinc-950 pt-28 md:pt-32 pb-10">
+    <div className="pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
@@ -289,7 +289,7 @@ export default function ReceiptVerification() {
 
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            Page {pagination.page || 1} of {pagination.totalPages || 1} • Total {pagination.total || 0}
+            Page {pagination.page || 1} of {pagination.totalPages || 1} â€¢ Total {pagination.total || 0}
           </p>
           <div className="flex items-center gap-2">
             <button
@@ -357,7 +357,7 @@ export default function ReceiptVerification() {
                       <p className="font-medium text-gray-900 dark:text-ivory break-all">{selectedOrder.paymentReceipt?.fileName || 'N/A'}</p>
                       <p className="text-sm text-gray-500 mt-1">
                         Size: {selectedOrder.paymentReceipt?.fileSize ? `${(Number(selectedOrder.paymentReceipt.fileSize) / 1024).toFixed(2)} KB` : 'N/A'}
-                        {selectedOrder.paymentReceipt?.fileType ? ` • ${selectedOrder.paymentReceipt.fileType}` : ''}
+                        {selectedOrder.paymentReceipt?.fileType ? ` â€¢ ${selectedOrder.paymentReceipt.fileType}` : ''}
                       </p>
                       <div className="mt-3 flex gap-2">
                         <button onClick={handleDownloadReceipt} disabled={receiptLoading} className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-ivory hover:bg-gray-200 dark:hover:bg-zinc-700 disabled:opacity-60 flex items-center gap-2">
