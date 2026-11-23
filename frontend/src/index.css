@@ -90,16 +90,9 @@
 
 /* Custom Cursor Styles (desktop with custom cursor) */
 @media (min-width: 768px) {
-  * {
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
     cursor: none !important;
-  }
-  
-  a, button, input, textarea, select, [data-cursor="hover"] {
-    cursor: none !important;
-  }
-
-  body {
-    cursor: none;
   }
 }
 

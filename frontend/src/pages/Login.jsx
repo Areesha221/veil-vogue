@@ -33,13 +33,13 @@ export default function Login() {
     setLoading(true);
     try {
       // rememberMe controls auth session persistence (localStorage vs sessionStorage)
-      const ok = await login(email, password, rememberMe);
-      if (!ok) return;
+      const loggedInUser = await login(email, password, rememberMe);
+      if (!loggedInUser) return;
 
       // Keep remembered-email convenience for next visit; rememberMe controls session persistence only
       setRememberedEmail(email);
 
-      navigate('/');
+      navigate(loggedInUser.role === 'admin' ? '/admin' : '/');
     } finally {
       setLoading(false);
     }

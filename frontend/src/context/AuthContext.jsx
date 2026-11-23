@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
         setAuth(data.token, data, !!rememberMe);
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
         toast.success(`Login successful! Welcome ${data.name || ''}`.trim());
-        return true;
+        return data;
       }
 
       toast.error('Invalid response from server');
@@ -101,7 +101,7 @@ export const AuthProvider = ({ children }) => {
         setAuth(data.token, data, !!rememberMe);
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
         toast.success('Account created successfully!');
-        return true;
+        return data;
       }
 
       toast.error('Registration failed');

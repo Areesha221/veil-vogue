@@ -15,12 +15,19 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+      const mobile = window.innerWidth < 768 || 'ontouchstart' in window;
+      setIsMobile(mobile);
+      if (mobile) document.body.classList.remove('custom-cursor-active');
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    if (isMobile) return;
+    if (isMobile) {
+      document.body.classList.remove('custom-cursor-active');
+      return;
+    }
+
+    document.body.classList.add('custom-cursor-active');
 
     let lastTrailTime = 0;
 
@@ -78,6 +85,7 @@ export default function CustomCursor() {
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('resize', checkMobile);
       observer.disconnect();
+      document.body.classList.remove('custom-cursor-active');
     };
   }, [isMobile]);
 

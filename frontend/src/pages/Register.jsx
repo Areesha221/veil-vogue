@@ -30,8 +30,8 @@ export default function Register() {
 
     setLoading(true);
     try {
-      const ok = await register(name, email, password);
-      if (ok) navigate('/');
+      const newUser = await register(name, email, password);
+      if (newUser) navigate(newUser.role === 'admin' ? '/admin' : '/');
     } finally {
       setLoading(false);
     }
