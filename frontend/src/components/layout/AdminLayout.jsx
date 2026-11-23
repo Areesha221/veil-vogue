@@ -4,6 +4,7 @@ import { LayoutDashboard, Package, ShoppingCart, Users, MessageSquare, Upload, S
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
+import CustomCursor from './CustomCursor';
 
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -52,6 +53,7 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-ivory dark:bg-zinc-950 text-gray-900 dark:text-ivory">
+      <CustomCursor />
       {/* Mobile top bar */}
       <div className="lg:hidden sticky top-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-b border-gray-200 dark:border-zinc-800 px-4 py-3 flex items-center justify-between">
         <button onClick={() => setSidebarOpen(true)} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-zinc-800" aria-label="Open admin menu">
