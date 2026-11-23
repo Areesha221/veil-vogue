@@ -14,7 +14,7 @@ export default function About() {
   ];
 
   return (
-    <div className="pt-24 pb-20 min-h-screen bg-ivory dark:bg-zinc-950">
+    <div className="pt-28 md:pt-32 pb-20 min-h-screen bg-ivory dark:bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4">
         {/* Hero */}
         <div className="text-center mb-16">

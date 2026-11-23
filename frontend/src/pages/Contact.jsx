@@ -101,7 +101,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="pt-24 pb-20 min-h-screen bg-ivory dark:bg-zinc-950">
+    <div className="pt-28 md:pt-32 pb-20 min-h-screen bg-ivory dark:bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="font-serif text-5xl font-bold mb-4 text-gray-900 dark:text-ivory">
