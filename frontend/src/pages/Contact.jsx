@@ -5,7 +5,6 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
-import ProductsStrip from '../components/shop/ProductsStrip';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function Contact() {
@@ -261,14 +260,6 @@ export default function Contact() {
           </div>
         </div>
 
-        <ProductsStrip
-          title="Best Sellers"
-          subtitle="Popular hijabs, abayas, and accessories with images and prices"
-          onlyBestSeller
-          sortBy="sold"
-          limit={4}
-          viewAllTo="/shop"
-        />
       </div>
     </div>
   );

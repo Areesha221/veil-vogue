@@ -1,5 +1,4 @@
 import { Heart, Award, Truck, Shield } from 'lucide-react';
-import ProductsStrip from '../components/shop/ProductsStrip';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function About() {
@@ -90,23 +89,6 @@ export default function About() {
             Shop Now
           </a>
         </div>
-
-        <ProductsStrip
-          title="Abayas Collection"
-          subtitle="Explore elegant abayas with images, fabrics, and prices"
-          category="abayas"
-          sortBy="sold"
-          limit={4}
-          viewAllTo="/shop/abayas"
-        />
-        <ProductsStrip
-          title="Hijabs Collection"
-          subtitle="Premium hijabs for every style and occasion"
-          category="hijabs"
-          sortBy="newest"
-          limit={4}
-          viewAllTo="/shop/hijabs"
-        />
       </div>
     </div>
   );
